@@ -30,7 +30,7 @@
 			width: 2000px;
 			height: 500px;
 			font-size: 0;
-			transform: translate(-1500px);
+			transform: translateX(-1000px);
 		}
 	
 		.buttons {
@@ -80,10 +80,44 @@
 				<span>4</span>
 			</div>
 
-			<div class="arrow left-arrow"><</div>
-			<div class="arrow right-arrow">></div>
+			<div class="left-arrow arrow"><</div>
+			<div class="right-arrow arrow">></div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		let carousel = document.querySelector(".carousel");
+		let next = document.querySelector(".right-arrow");
+		let previous = document.querySelector(".left-arrow");
+		let newtranslate = 0
+		let buttons = document.getElementsByTagName("span");
+
+		function nextStyle(){
+			newtranslate = parseInt(newtranslate - 500);
+			newtranslate = newtranslate + "px";
+     		carousel.style.transform = "translateX(" + newtranslate + ")";
+		}
+
+		function previousStyle(){
+			newtranslate = parseInt(newtranslate + 500);
+			newtranslate = newtranslate + "px";
+			carousel.style.transform = "translateX(" + newtranslate + ")";
+		}
+
+		next.addEventListener('click', (e) => {
+			nextStyle();
+		})
+
+		previous.addEventListener('click', (e) => {
+			previousStyle();
+		})
+
+		function showButtons(){
+			for (var i = 0,i<buttons.length,i++
+		}
+
+
+	</script>
 	
 </body>
 </html>
