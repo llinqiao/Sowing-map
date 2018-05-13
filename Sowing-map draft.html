@@ -79,7 +79,7 @@
 <body>
 	<div class="container">
 		<div class="container-border center">
-			<div class="carousel" style="transform: translateX(-1000px)">
+			<div class="carousel" style="transform: translateX(0px)">
 				<img src="./images/photo1.png">
 				<img src="./images/photo2.png">
 				<img src="./images/photo3.png">
@@ -103,25 +103,39 @@
 		let next = document.querySelector(".right-arrow");
 		let previous = document.querySelector(".left-arrow");
 		let buttons = document.getElementsByTagName("span");
+		let newtranslate;
 		let index = 0;
+
 		function nextStyle(){
-		 	let newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) - 500);
-			newtranslate = newtranslate + "px";
+			if(carousel.style.transform.replace(/[^0-9]/ig,"") === "1500"){
+				newtranslate = 0;
+			}else{
+				newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) - 500);
+			}
+		 	newtranslate = newtranslate + "px";
      		carousel.style.transform = "translateX(" + newtranslate + ")";
-     		index ++;
+
+     		index = index+1;
      		if (index>3) {
      			index = 0;
      		}
+     		showButtons();
 		}
 
 		function previousStyle(){
-			let newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) + 500);
+			if(carousel.style.transform.replace(/[^0-9]/ig,"") === "0"){
+				newtranslate = -1500;
+			}else{
+				newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) + 500);
+			}
 			newtranslate = newtranslate + "px";
 			carousel.style.transform = "translateX(" + newtranslate + ")";
-			index --;
+			
+			index = index-1;
 			if(index<0){
 				index = 3;
 			}
+			showButtons();
 		}
 
 		next.addEventListener('click', (e) => {
@@ -132,18 +146,13 @@
 			previousStyle();
 		})
 
-
-
-
-		buttons[index].className = "on";
+		buttons[0].className = "on";
 
 		function showButtons(){
 			for (var i = 0;i<buttons.length;i++){
-
+				buttons[i].className = "";
 			}
-			{
 				buttons[index].className = "on";
-			}
 		}
 
 
