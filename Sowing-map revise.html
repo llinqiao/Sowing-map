@@ -79,7 +79,7 @@
 <body>
 	<div class="container">
 		<div class="container-border center">
-			<div class="carousel" style="transform: translateX(-1000px)">
+			<div class="carousel" style="transform: translateX(0px)">
 				<img src="./images/photo1.png">
 				<img src="./images/photo2.png">
 				<img src="./images/photo3.png">
@@ -87,7 +87,7 @@
 			</div>
 
 			<div class="buttons">
-				<span>1</span>
+				<span class="on">1</span>
 				<span>2</span>
 				<span>3</span>
 				<span>4</span>
@@ -104,24 +104,37 @@
 		let previous = document.querySelector(".left-arrow");
 		let buttons = document.getElementsByTagName("span");
 		let index = 0;
+		let translateIndex = 0;
 		function nextStyle(){
-		 	let newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) - 500);
-			newtranslate = newtranslate + "px";
-     		carousel.style.transform = "translateX(" + newtranslate + ")";
+			if(translateIndex === -3){
+				translateIndex = 0;
+			}else{
+				translateIndex--;
+			}
+			let newtranslate = translateIndex * 500;
+     		carousel.style.transform = "translateX(" + newtranslate + "px" + ")";
+
      		index ++;
      		if (index>3) {
      			index = 0;
      		}
+     		showButtons();
 		}
 
 		function previousStyle(){
-			let newtranslate = parseInt(-Number(carousel.style.transform.replace(/[^0-9]/ig,"")) + 500);
-			newtranslate = newtranslate + "px";
-			carousel.style.transform = "translateX(" + newtranslate + ")";
+			if(translateIndex === 0){
+				translateIndex = -3;
+			}else{
+				translateIndex++;
+			}
+			let newtranslate = translateIndex * 500;
+     		carousel.style.transform = "translateX(" + newtranslate + "px" + ")";
+
 			index --;
-			if(index<0){
+			if (index<0) {
 				index = 3;
 			}
+			showButtons();
 		}
 
 		next.addEventListener('click', (e) => {
@@ -133,17 +146,11 @@
 		})
 
 
-
-
-		buttons[index].className = "on";
-
 		function showButtons(){
 			for (var i = 0;i<buttons.length;i++){
-
+				buttons[i].className = "";
 			}
-			{
 				buttons[index].className = "on";
-			}
 		}
 
 
