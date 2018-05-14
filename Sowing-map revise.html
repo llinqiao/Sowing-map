@@ -53,7 +53,7 @@
 			color: white;
 		}
 
-		.on {
+		.onTerm {
 			background-color: red;
 		}
 
@@ -87,10 +87,10 @@
 			</div>
 
 			<div class="buttons">
-				<span class="on">1</span>
-				<span>2</span>
-				<span>3</span>
-				<span>4</span>
+				<span class="term onTerm">1</span>
+				<span class="term">2</span>
+				<span class="term">3</span>
+				<span class="term">4</span>
 			</div>
 
 			<div class="left-arrow arrow"><</div>
@@ -102,9 +102,11 @@
 		let carousel = document.querySelector(".carousel");
 		let next = document.querySelector(".right-arrow");
 		let previous = document.querySelector(".left-arrow");
-		let buttons = document.getElementsByTagName("span");
-		let index = 0;
+		let buttons = document.querySelectorAll(".term");
+		//let buttons = document.getElementsByTagName("span");
+		let Index = 0;
 		let translateIndex = 0;
+
 		function nextStyle(){
 			if(translateIndex === -3){
 				translateIndex = 0;
@@ -114,9 +116,9 @@
 			let newtranslate = translateIndex * 500;
      		carousel.style.transform = "translateX(" + newtranslate + "px" + ")";
 
-     		index ++;
-     		if (index>3) {
-     			index = 0;
+     		Index ++;
+     		if (Index>3) {
+     			Index = 0;
      		}
      		showButtons();
 		}
@@ -130,9 +132,9 @@
 			let newtranslate = translateIndex * 500;
      		carousel.style.transform = "translateX(" + newtranslate + "px" + ")";
 
-			index --;
-			if (index<0) {
-				index = 3;
+			Index --;
+			if (Index<0) {
+				Index = 3;
 			}
 			showButtons();
 		}
@@ -150,8 +152,28 @@
 			for (var i = 0;i<buttons.length;i++){
 				buttons[i].className = "";
 			}
-				buttons[index].className = "on";
+				buttons[Index].className = "onTerm";
 		}
+
+		function resetclass(){
+			buttons.forEach((item) => {
+				item.className = ""
+			})
+		}
+
+		function onBtnClicked(index){
+			let node = -index * 500 ;
+			carousel.style.transform = "translateX(" + node + "px" + ")";
+			resetclass();
+			buttons[index].className = "onTerm";
+
+		}
+
+		buttons.forEach((item, index) => {
+			item.addEventListener('click', (e) => {
+				onBtnClicked(index);
+			})
+		})
 
 
 	</script>
